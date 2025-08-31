@@ -101,5 +101,37 @@ for i, e in enumerate(arr):
 flag = ''.join(ws)
 print("Flag:", flag)
 ```
-## Final Flag - scriptCTF{nO_MOr3_n471v3_tr4N5l471on}
+## Flag - scriptCTF{nO_MOr3_n471v3_tr4N5l471on}
+
+# Challenge 2 - Secure Server(Crypto)
+
+In this challenge, we are given a capture.pcap file and the server.py. After inspecting the server file, we see that the server first asks for the secret XOR'ed with our key(call it key1). That means the first input is **flag XOR key1**, which we know.  
+Now, the server generates a random key(call it key2) and XOR's the input with key2. Hence, **enc2 = flag XOR key1 XOR key2**, which they have printed for us.  
+Finally, it takes **enc2 XOR key1** as an input, which is equal to **flag XOR key1 XOR key2 XOR key1** = **flag XOR key2**, which we also know.  
+So, we know:
+- flag XOR key1 = 151e71ce4addf692d5bac83bb87911a20c39b71da3fa5e7ff05a2b2b0a83ba03
+- flag XOR key1 XOR key2 = e1930164280e44386b389f7e3bc02b707188ea70d9617e3ced989f15d8a10d70
+- flag XOR key2 = 87ee02c312a7f1fef8f92f75f1e60ba122df321925e8132068b0871ff303960e
+
+Based on this information, if we were take the XOR of all three values, we would get **flag XOR flag XOR flag XOR key1 XOR key XOR key2 XOR key2**, which is same as **flag**.
+
+Taking the XOR, we get 7363726970744354467b7830725f31735f6e6f745f733363757233212121217d, which is the flag. Converting to ascii gives us the flag
+## Flag - scriptCTF{x0r_1s_not_s3cur3!!!!}
+
+# Challenge 3 - pdf(Forensics)
+
+In this challenge, we are given a .pdf file. Running file on it tells us that it, indeed is a pdf file with a single page.  
+<img width="748" height="65" alt="image" src="https://github.com/user-attachments/assets/39faf1e9-1e03-4948-b114-44b3e7c3e9df" />
+
+Running binwalk to check for hidden files, we get:  
+
+<img width="1875" height="222" alt="image" src="https://github.com/user-attachments/assets/66b89c54-6b11-44ef-8cca-314ab3f865dc" />
+
+
+We can see that there is something hidden in the pdf file. Extracting the hidden files, we get a file called 11B. When we cat 11B, we get the flag.  
+
+
+<img width="750" height="114" alt="image" src="https://github.com/user-attachments/assets/39911eea-a770-4aa5-b72d-a75d7de1ccd1" />  
+
+## Flag - scriptCTF{pdf_s7r34m5_0v3r_7w17ch_5tr34ms}
 
